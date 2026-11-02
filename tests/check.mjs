@@ -1,0 +1,11 @@
+import {readFileSync, existsSync} from 'node:fs';
+import assert from 'node:assert/strict';
+for (const path of ['index.html','style.css','app.js','README.md']) assert.ok(existsSync(path), path+' missing');
+const html=readFileSync('index.html','utf8'), js=readFileSync('app.js','utf8');
+assert.match(html, /<meta name="viewport"/);
+assert.match(html, /app\.js/);
+for (const code of ['am','en','om','ti','so','aa','ar','zh','fr']) assert.match(js,new RegExp(code+':'));
+for (const feature of ['function swap','function quiz','function answer','function learned','function results','function speak']) assert.ok(js.includes(feature),feature+' missing');
+assert.match(js,/localStorage/);
+assert.match(js,/state\.seconds=15/);
+console.log('Static prototype checks passed; browser and educational QA still required.');
