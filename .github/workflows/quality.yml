@@ -1,4 +1,4 @@
-name: Prototype quality checks
+name: MultiLingua quality checks
 on:
   push:
   pull_request:
@@ -10,7 +10,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: JavaScript syntax
-        run: node --check app.js
-      - name: Static application checks
+      - name: JavaScript syntax checks
+        run: |
+          node --check app.js
+          node --check curriculum.js
+          node --check studio.js
+      - name: Static prototype checks
         run: node tests/check.mjs
